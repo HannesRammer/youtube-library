@@ -1,4 +1,6 @@
-let youtubeLibryary = {
+let youtubeLibrary = {
+    videos: [],
+    currentLocation:"",
     addCss: function (css) {
         let head = document.getElementsByTagName('head')[0];
         let s = document.createElement('style');
@@ -21,14 +23,56 @@ let youtubeLibryary = {
         head.appendChild(s);
     },
 
+    storeVideos: function () {
+        chrome.storage.sync.set({'videos': youtubeLibrary.videos}, function () {
+            // Notify that we saved.
+            console.log('videos updated');
+        });
+
+    },
+    loadVideos: function () {
+        chrome.storage.sync.get('videos', function (value) {
+            if (value.videos === undefined) {
+                youtubeLibrary.videos = [];
+            } else {
+                youtubeLibrary.videos = value.videos;
+            }
+            console.log('videos loaded');
+        });
+
+    },
+    initiateView: function () {
+        console.log('initiate view');
+
+        youtubeLibrary.loadVideos();
+
+
+    },
+    checkLocationHasChanged: function () {
+        if (youtubeLibrary.currentLocation != location.href ){
+            youtubeLibrary.currentLocation = location.href;
+            youtubeLibrary.getVideoInfoFromPage();
+        }
+
+
+
+    },
+    getVideoInfoFromPage:function(){
+        console.log('get video info from page');
+    }
 
 };
 
 $(document).ready(function () {
     console.log("start");
 
+    youtubeLibrary.initiateView();
+    setInterval(youtubeLibrary.checkLocationHasChanged,3000);
+
+
+
 
 });
 console.log("start2");
-youtubeLibryary.addStyle();
-youtubeLibryary.addCss(`   `);
+youtubeLibrary.addStyle();
+youtubeLibrary.addCss(`   `);

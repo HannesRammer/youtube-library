@@ -8,19 +8,27 @@
     "default_title": "youtube library"
   },
   "oauth2": {
-    "client_id": "477580242585-65stuf3qlsf4i17brijqqem1jij7ht0n.apps.googleusercontent.com",
-    "scopes":["https://www.googleapis.com/auth/youtube"]
+    "client_id": "245406327895-ms26umc4reakklm4270b8nubbl04lu3e.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/youtube"
+    ]
   },
   "permissions": [
     "identity",
-    
+    "activeTab",
     "storage"
-
   ],
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js" : ["json_inject.js"]
+      "matches": [
+        "http://*.youtube.com/*",
+        "https://*.youtube.com/*"
+      ],
+      "js": [
+        "jquery-3.2.0.min.js",
+        "oauth.js",
+        "json_inject.js"
+      ]
     }
   ],
   "background": {
