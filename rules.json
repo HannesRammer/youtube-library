@@ -1,0 +1,12 @@
+{
+    "my_rule": {
+      "priority": 1,
+      "action": {
+        "type": "block"
+      },
+      "condition": {
+        "urlFilter": "https://www.youtube.com/*",
+        "resourceTypes": ["script"]
+      }
+    }
+  }

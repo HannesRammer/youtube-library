@@ -1,38 +1,39 @@
 {
-  "name": "youtube library",
-  "description": "Manage played youtube songs like songs google play music",
-  "version": "0.0.1",
-  "version_name": "0.0.1 beta",
-  "browser_action": {
-    "default_icon": "icon1.png",
-    "default_title": "fluxfm playlists"
+  "manifest_version": 3,
+  "name": "YouTube Library",
+  "version": "1.0",
+  "description": "Manage played YouTube songs like in the style of a music library",
+  "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
   },
   "permissions": [
-    "activeTab",
-    "tabs",
-    "nativeMessaging",
-    "storage",
-    "contextMenus",
-    "https://www.googleapis.com/youtube/v3/search"
+      "activeTab",
+      "storage",
+      "tabs",
+      "history"
   ],
+  "host_permissions": [
+    "https://www.googleapis.com/*"
+],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "content_scripts": [
-    {
-      "matches": [
-        "https://www.youtube.com/*"
-      ],
-      "js": [
-        "jquery-2.2.1.min.js",
-        "jq.tmpl-1.0.4.js",
-        "jquery.jplayer-2.9.2.min.js",
-        "jquery-dateFormat.min.js",
-        "content.js"
-      ]
-    }
+      {
+          "matches": ["https://www.youtube.com/*"],
+          "js": ["content.js"],
+          "css": ["modal_library.css"]          
+      }
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "manifest_version": 2
+  "action": {
+      "default_icon": {
+          "16": "icon.png",
+          "48": "icon.png",
+          "128": "icon.png"
+      },
+      "default_title": "YouTube Library"
+     
+  }
 }

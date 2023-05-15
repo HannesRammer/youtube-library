@@ -1,0 +1,142 @@
+/* Body styles */
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #0F380F; /* Dark green */
+  background-color: #A0C880; /* Light green */
+}
+
+/* Heading styles */
+h2, .media-library h2 {
+  margin-top: 0;
+  color: #0F380F; /* Dark green */
+}
+
+/* Music library modal styles */
+#music-library-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #A0C880; /* Light green */
+  border: 1px solid #0F380F; /* Black green */
+  padding: 20px;
+  display: none;
+  height: 90%;
+  overflow: auto;
+}
+
+/* Media library styles */
+.media-library {
+  border: 1px solid #0F380F; /* Black green */
+  padding: 16px;
+  width: 500px;
+  max-width: 1200px;
+  margin: 20px auto 0;
+  background-color: #A0C880; /* Light green */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Songs table styles */
+#songs, .songs-table {
+  border: 1px solid #0F380F; /* Black green */
+  border-top: none;
+  border-collapse: collapse;
+  max-width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  color: #0F380F; /* Dark green */
+  background-color: #A0C880; /* Light green */
+  table-layout: fixed;
+  width: 100%;
+}
+
+#songs th, .songs-table th {
+  padding: 12px;
+  font-weight: 500;
+  text-align: left;
+  border-bottom: 1px solid #0F380F; /* Black green */
+  background-color: #0F380F; /* Dark green */
+  color: #A0C880; /* Light green */
+  width: 16.67%;
+}
+
+#songs td, .songs-table td {
+  padding: 12px;
+  border-bottom: 1px solid #0F380F; /* Black green */
+  width: 16.67%;
+  color: #0F380F; /* Dark green */
+}
+
+/* Error message styles */
+#error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Fetch button styles */
+#fetch-button {
+  background-color: #0F380F; /* Dark green */
+  color: #A0C880; /* Light green */
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#fetch-button:hover {
+  background-color: #1D6D1D; /* Dark green (slightly darker) */
+}
+
+/* Songs table cell styles */
+.songs-table td {
+  padding: 5px;
+  border-bottom: 1px solid #0F380F; /* Black green */
+  border-left: none;
+  border-right: none;
+  color: #0F380F; /* Dark green */
+}
+
+/* Songs table row styles */
+.songs-table td:nth-child(odd) {
+  background-color: #A0C880; /* Light green */
+}
+
+.songs-table td:nth-child(even) {
+  /*background-color: #D6F2B2; */ /* Lighter green */
+  background-color: #A0C880; /* Light green */
+}
+
+/* Songs table cell hover styles */
+.songs-table td:hover {
+  background-color: #D6F2B2; /* Lighter green */
+}
+
+/* Level element styles */
+.border {
+  border: 1px solid #0F380F; /* Black green */
+}
+
+.backgroundcolor {
+  background-color: #A0C880; /* Light green */
+}
+
+/* Link (power-up) styles */
+a {
+  color: #0F380F; /* Dark green */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #1D6D1D; /* Dark green (slightly darker) */
+}
