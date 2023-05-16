@@ -14,10 +14,12 @@ mediaTag.addEventListener('play', function () {
     const video = document.querySelector('video');
     const src = video.getAttribute('src');
 
+    const thumbnail = document.querySelector('link[rel="image_src"]');
+    const thumbnailUrl = thumbnail.getAttribute('href');
     // const title = titleElement ? titleElement.textContent : '';
     // const artist = artistElement ? artistElement.textContent : '';
-    extractMediaInfo(titleElement.textContent, window.location.href, 1,mediaTag.duration,src);
-  }, 3000);
+    extractMediaInfo(titleElement.textContent, window.location.href, 1,mediaTag.duration,src,thumbnailUrl);
+  }, 5000);
 });
 }
 
@@ -57,51 +59,52 @@ function handleInputChange(event) {
 
 
 function createMusicLibraryButton() {
-// Create a new button element to show the music library modal
-const button = document.createElement('button');
-button.textContent = 'Show Music Library';
-button.id = 'music-library-button';
-button.style.position = 'absolute';
-button.style.top = '10px';
-button.style.right = '10px';
-button.style.zIndex = '9999';
-button.className = 'style-scope ytd-app';
+  // Create a new button element to show the music library modal
+  const button = document.createElement('button');
+  button.textContent = 'Show Music Library';
+  button.id = 'music-library-button';
+  button.style.position = 'absolute';
+  button.style.top = '10px';
+  button.style.right = '10px';
+  button.style.zIndex = '9999';
+  button.className = 'style-scope ytd-app';
 
-// Add an event listener to the button to show the music library modal when clicked
-button.addEventListener('click', function () {
-  // Create a new div element to hold the music library table
+  // Add an event listener to the button to show the music library modal when clicked
+  button.addEventListener('click', function () {
+    // Create a new div element to hold the music library table
 
-  const modalDiv = document.getElementById('music-library-modal');
+    const modalDiv = document.getElementById('music-library-modal');
 
-  // Check if the modal dialog exists
-  if (modalDiv) {
-    // If the modal dialog exists, do something
-    console.log('Music library modal dialog found!');
-    modalDiv.style.display = modalDiv.style.display === 'none' ? 'block' : 'none';
-  } else {
-    // If the modal dialog does not exist, do something else
-    console.log('Music library modal dialog not found!');
+    // Check if the modal dialog exists
+    if (modalDiv) {
+      // If the modal dialog exists, do something
+      console.log('Music library modal dialog found!');
+      modalDiv.style.display = modalDiv.style.display === 'none' ? 'block' : 'none';
+    } else {
+      // If the modal dialog does not exist, do something else
+      console.log('Music library modal dialog not found!');
 
-    createMusicLibraryTable();
-    // Load the music library table HTML into the div element
+      createMusicLibraryTable();
+      // Load the music library table HTML into the div element
 
-    // Add the modal div to the YouTube page
+      // Add the modal div to the YouTube page
 
-  }
+    }
 
-});
+  });
 
 
-//document.addEventListener('DOMContentLoaded', function () {
-// Add the button to the content area
-
+  //document.addEventListener('DOMContentLoaded', function () {
+  // Add the button to the content area
+setTimeout(function () {
   const contentArea = document.querySelector('#content');
   contentArea.appendChild(button);
+}, 2000);
 }
 //});
 
 
-function extractMediaInfo(titleElement, videoUrl, visitCount,duration,src) {
+function extractMediaInfo(titleElement, videoUrl, visitCount,duration,src,thumbnailUrl) {
   const songParts = titleElement.split('-');
   // Trim whitespace from the artist and title parts
   const artist = songParts.length > 1 ? songParts[1].trim() : songParts[0].trim();
@@ -123,13 +126,14 @@ function extractMediaInfo(titleElement, videoUrl, visitCount,duration,src) {
   if (existingSong) {
     existingSong.playedTimes++;
     existingSong.duration = duration;
+    existingSong.thumbnailUrl = thumbnailUrl;
     if(src!==""){
         existingSong.src = src;
     }
     console.log('Video already played. Incrementing played times:', existingSong.playedTimes);
   } else {
     // If the video is not in the played songs list, add it to the list
-    playedSongs.push({ title, artist, url, duration, playedTimes: visitCount,src });
+    playedSongs.push({ title, artist, url, duration, playedTimes: visitCount,src,thumbnailUrl });
     console.log('Video not played before. Adding to played songs:', playedSongs);
   }
 
@@ -150,7 +154,9 @@ function createMusicLibraryTable() {
   // Create the table header
   const thead = document.createElement('thead');
   const tr = document.createElement('tr');
+  const th7 = createTableHeader('Thumb', 6, table);
   const th1 = createTableHeader('Artist', 0, table);
+
   const th2 = createTableHeader('Title', 1, table);
   const th3 = createTableHeader('Duration', 2, table);
   const th4 = createTableHeader('Played Times', 3, table);
@@ -158,6 +164,7 @@ function createMusicLibraryTable() {
   const th6 = createTableHeader('URL', 5, table);
 
   // Append the table header elements to the table row
+  tr.appendChild(th7);
   tr.appendChild(th1);
   tr.appendChild(th2);
   tr.appendChild(th3);
@@ -266,36 +273,40 @@ function fetchPlayedSongsFromLocalStorage() {
 }
 
 function fetchPlayedSongsByApi() {
-  const apiKey = 'YOUR_API_KEY';
-  const playlistId = 'PLFgquLnL59alW3xmYiWRaoz0oM3H17Lth';
-  const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
+  const apiKey = 'AIzaSyCZxk6LF_GoVRjnxG1saAxOJrGpPhEj0QU';
+  //const playlistId = 'PLFgquLnL59alW3xmYiWRaoz0oM3H17Lth';
+
+  {YOUR_API_KEY}
+  const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&mine=true&key=${apiKey}`;
   return fetch(url)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      const playedSongs = [];
+      //const playedSongs = [];
       data.items.forEach(function (item) {
         const title = item.snippet.title;
-        const artist = item.snippet.videoOwnerChannelTitle;
-        const duration = item.snippet.duration;
-        const existingSong = playedSongs.find(function (song) {
-          return song.title === title && song.artist === artist;
-        });
-        if (existingSong) {
-          existingSong.playedTimes++;
-        } else {
-          playedSongs.push({ title, artist, duration, playedTimes: 1 });
-        }
+
+        extractMediaInfo(htmltitle, item.snippet.url, item.visitCount,0,"","");
+        // const artist = item.snippet.videoOwnerChannelTitle;
+        // const duration = item.snippet.duration;
+        // const existingSong = playedSongs.find(function (song) {
+        //   return song.title === title && song.artist === artist;
+        // });
+        // if (existingSong) {
+        //   existingSong.playedTimes++;
+        // } else {
+        //   playedSongs.push({ title, artist, duration, playedTimes: 1 });
+        // }
       });
-      chrome.storage.local.set({ playedSongs: playedSongs });
+     // chrome.storage.local.set({ playedSongs: playedSongs });
       return playedSongs;
     });
 }
 
 function fetchPlayedSongsByHistory() {
   return new Promise(function (resolve, reject) {
-    const playedSongs = [];
+
     chrome.runtime.sendMessage({ action: "getHistory" }, function (response) {
       // Handle the response from the background script
       
@@ -304,10 +315,9 @@ function fetchPlayedSongsByHistory() {
         const item = historyItems[i];
         // Extract song title, artist and duration from YouTube video page title
         const htmltitle = item.title.replace(/^\([^()]+\)\s*/, "").split(' - YouTube')[0];
-        extractMediaInfo(htmltitle, item.url, item.visitCount,0,"");
+        extractMediaInfo(htmltitle, item.url, item.visitCount,0,"","");
       }
-      // Store played songs in local storage
-      chrome.storage.local.set({ playedSongs: playedSongs });
+    
       
       console.log("getHistory response:");
       console.log(response.historyItems);
@@ -328,6 +338,12 @@ function displaySongs(songs) {
     const playedTimesCell = document.createElement('td');
     const ratingCell = document.createElement('td');
     const urlCell = document.createElement('td');
+    const thumbnailCell = document.createElement('td');
+    const thumbnail = document.createElement('img');
+    thumbnail.width = 150;
+    thumbnail.src = song.thumbnailUrl;
+    thumbnailCell.appendChild(thumbnail);
+    
     artistCell.textContent = song.artist;
 
     // if (song.src && song.src !== '') {
@@ -356,8 +372,9 @@ function displaySongs(songs) {
     playedTimesCell.textContent = song.playedTimes;
     ratingCell.textContent = song.rating;
     urlCell.textContent = song.url;
-    row.appendChild(artistCell);
+    row.appendChild(thumbnailCell);
     row.appendChild(titleCell);
+    row.appendChild(artistCell);
     row.appendChild(durationCell);
     row.appendChild(playedTimesCell);
     row.appendChild(ratingCell);
@@ -439,8 +456,7 @@ function convertTimeToSeconds(timeString) {
   return minutes * 60 + seconds;
 }
 
-
+window.addEventListener('load', createMusicLibraryButton);
 window.addEventListener('load', createMediaTag);
 
 window.addEventListener('load', createSearchTag);
-window.addEventListener('load', createMusicLibraryButton);

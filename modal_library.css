@@ -2,14 +2,17 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
-  color: #0F380F; /* Dark green */
-  background-color: #A0C880; /* Light green */
+  color: #333333; /* Dark gray */
+  background-color: #F5F5F5; /* Light gray */
+  line-height: 1.5;
 }
 
 /* Heading styles */
-h2, .media-library h2 {
+h2 {
   margin-top: 0;
-  color: #0F380F; /* Dark green */
+  color: #333333; /* Dark gray */
+  font-weight: 500;
+  font-size: 24px;
 }
 
 /* Music library modal styles */
@@ -19,57 +22,46 @@ h2, .media-library h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  background-color: #A0C880; /* Light green */
-  border: 1px solid #0F380F; /* Black green */
+  background-color: #FFFFFF; /* White */
+  border: 1px solid #DDDDDD; /* Light gray */
   padding: 20px;
   display: none;
-  height: 90%;
+  width: 80%; /* Adjust modal width instead of height for better responsiveness */
+  max-height: 90%;
   overflow: auto;
+  border-radius: 4px; /* Consistency with other elements */
 }
 
 /* Media library styles */
 .media-library {
-  border: 1px solid #0F380F; /* Black green */
+  border: 1px solid #DDDDDD; /* Light gray */
   padding: 16px;
-  width: 500px;
   max-width: 1200px;
-  margin: 20px auto 0;
-  background-color: #A0C880; /* Light green */
+  margin: 20px auto;
+  background-color: #FFFFFF; /* White */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
 
 /* Songs table styles */
-#songs, .songs-table {
-  border: 1px solid #0F380F; /* Black green */
-  border-top: none;
+.songs-table {
   border-collapse: collapse;
-  max-width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  color: #0F380F; /* Dark green */
-  background-color: #A0C880; /* Light green */
-  table-layout: fixed;
   width: 100%;
+  table-layout: fixed;
+  font-size: 12px;
 }
 
-#songs th, .songs-table th {
+.songs-table th, .songs-table td {
   padding: 12px;
-  font-weight: 500;
+  border-bottom: 1px solid #DDDDDD; /* Light gray */
   text-align: left;
-  border-bottom: 1px solid #0F380F; /* Black green */
-  background-color: #0F380F; /* Dark green */
-  color: #A0C880; /* Light green */
-  width: 16.67%;
+  color: #333333; /* Dark gray */
 }
 
-#songs td, .songs-table td {
-  padding: 12px;
-  border-bottom: 1px solid #0F380F; /* Black green */
-  width: 16.67%;
-  color: #0F380F; /* Dark green */
+.songs-table th {
+  background-color: #333333; /* Dark gray */
+  color: #FFFFFF; /* White */
+  font-weight: 500;
 }
 
 /* Error message styles */
@@ -81,8 +73,8 @@ h2, .media-library h2 {
 
 /* Fetch button styles */
 #fetch-button {
-  background-color: #0F380F; /* Dark green */
-  color: #A0C880; /* Light green */
+  background-color: #333333; /* Dark gray */
+  color: #FFFFFF; /* White */
   border: none;
   padding: 10px 20px;
   text-align: center;
@@ -90,53 +82,106 @@ h2, .media-library h2 {
   display: inline-block;
   font-size: 14px;
   margin-top: 20px;
-  cursor: pointer;
-  border-radius: 4px;
+ 
+cursor: pointer;
+border-radius: 4px;
+transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 #fetch-button:hover {
-  background-color: #1D6D1D; /* Dark green (slightly darker) */
+background-color: #555555; /* Darker gray */
 }
 
 /* Songs table cell styles */
 .songs-table td {
-  padding: 5px;
-  border-bottom: 1px solid #0F380F; /* Black green */
-  border-left: none;
-  border-right: none;
-  color: #0F380F; /* Dark green */
+padding: 12px; /* Consistent padding with th */
+border-bottom: 1px solid #DDDDDD; /* Light gray */
 }
 
 /* Songs table row styles */
-.songs-table td:nth-child(odd) {
-  background-color: #A0C880; /* Light green */
+.songs-table tr:nth-child(odd) {
+background-color: #FFFFFF; /* White */
 }
 
-.songs-table td:nth-child(even) {
-  /*background-color: #D6F2B2; */ /* Lighter green */
-  background-color: #A0C880; /* Light green */
+.songs-table tr:nth-child(even) {
+background-color: #F5F5F5; /* Light gray */
 }
 
 /* Songs table cell hover styles */
 .songs-table td:hover {
-  background-color: #D6F2B2; /* Lighter green */
+background-color: #EEEEEE; /* Slightly darker gray for better contrast */
 }
 
 /* Level element styles */
 .border {
-  border: 1px solid #0F380F; /* Black green */
+border: 1px solid #DDDDDD; /* Light gray */
 }
 
 .backgroundcolor {
-  background-color: #A0C880; /* Light green */
+background-color: #FFFFFF; /* White */
 }
 
 /* Link (power-up) styles */
 a {
-  color: #0F380F; /* Dark green */
-  text-decoration: none;
+color: #333333; /* Dark gray */
+text-decoration: none;
+transition: color 0.3s ease; /* Smooth hover transition */
 }
 
 a:hover {
-  color: #1D6D1D; /* Dark green (slightly darker) */
+color: #555555; /* Darker gray */
 }
+
+/* Hide styles */
+.hide {
+display: none;
+}
+
+  /* Thumbnail styles */
+.thumbnail {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Maintain a 16:9 aspect ratio */
+  position: relative;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Media info styles */
+.media-info {
+  padding: 10px;
+}
+
+.media-info .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.media-info .description {
+  margin: 0;
+}
+
+/* Grid layout styles */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+@media (max-width: 768px) {
+  /* Adjust the number of columns for smaller screens */
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+
